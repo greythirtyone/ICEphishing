@@ -1,0 +1,13 @@
+# ICEphisher default connection settings
+# Loaded automatically at startup (if present).
+# You can also use config.yaml with the same structure.
+# DO NOT commit credentials — add your local copy to .gitignore or use config.local.yaml
+
+host: ""
+user: ""
+pass: ""
+eventEndpoint: "/devices/views/all/devices.json"
+wigleKey: ""
+claudeKey: ""
+debug: false
+display_common_ssid: false
