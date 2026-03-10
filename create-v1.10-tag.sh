@@ -43,7 +43,7 @@ else
 fi
 
 echo "→ Pulling latest changes..."
-git pull origin main
+git pull --ff-only origin main
 
 # Create an annotated tag with message
 echo "→ Creating annotated tag v1.10..."
