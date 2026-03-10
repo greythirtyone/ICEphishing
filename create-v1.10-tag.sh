@@ -24,16 +24,30 @@ if git rev-parse v1.10 >/dev/null 2>&1; then
     exit 1
 fi
 
-# Ensure we're on main and it's up to date
-echo "→ Checking out main branch..."
-git checkout main
+# Check current branch and ensure we're on main
+current_branch=$(git branch --show-current)
+if [ "$current_branch" != "main" ]; then
+    echo "→ Currently on branch: $current_branch"
+    echo "→ Switching to main branch..."
+    
+    # Check for uncommitted changes
+    if ! git diff-index --quiet HEAD --; then
+        echo "⚠️  You have uncommitted changes on $current_branch"
+        echo "Please commit or stash your changes before proceeding."
+        exit 1
+    fi
+    
+    git checkout main
+else
+    echo "→ Already on main branch"
+fi
 
 echo "→ Pulling latest changes..."
 git pull origin main
 
-# Create the tag
-echo "→ Creating tag v1.10..."
-git tag v1.10
+# Create an annotated tag with message
+echo "→ Creating annotated tag v1.10..."
+git tag -a v1.10 -m "Release v1.10"
 
 # Push the tag to trigger the workflow
 echo "→ Pushing tag to origin..."
